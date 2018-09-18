@@ -31,10 +31,11 @@ while picture_count < 50:
             camera.capture(rawCapture, format="bgr")
             img = rawCapture.array
             now = datetime.now()
-            current_pic_name = '%02d%02d%04d_%02d_%02d_%02d.raw' % (now.month, now.day, now.year, now.hour, now.minute, now.second)
-            cv2.imwrite(path + current_pic_name, img)
+            current_pic_name = '%02d%02d%04d_%02d_%02d_%02d.jpg' % (now.month, now.day, now.year, now.hour, now.minute, now.second)
+            cv2.imwrite(os.path.join(path, current_pic_name), img)
             photo_taken = True
             picture_count += 1
+            print('Photos Taken: ' + str(picture_count))
     else:
         led.off
         photo_taken = False
