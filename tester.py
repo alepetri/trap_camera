@@ -2,9 +2,11 @@
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 import time
+from datetime import datetime
 import cv2
 import os
 from gpiozero import LED, MotionSensor
+import sys
 
 # initializing the camera, gpio pins, and path to save photos
 led = LED(17)
@@ -14,7 +16,7 @@ rawCapture = PiRGBArray(camera)
 #camera.resolution = (640, 480)
 #camera.framerate = 32
 #rawCapture = PiRGBArray(camera, size=(640, 480)))
-path = '/media/usb'
+path = '/media/pi/TRAP_PIX'
 
 # allows camera time to boot
 time.sleep(0.1)
@@ -29,8 +31,8 @@ while picture_count < 50:
             camera.capture(rawCapture, format="bgr")
             img = rawCapture.array
             now = datetime.now()
-            current_pic_name = '%02d%02d%04d_%02d_%02d_%02d' % (now.month, now.day, now.year, now.hour, now.minute, now.second)
-            cv2.imwrite(os.path.join(path, current_pic_name), img)
+            current_pic_name = '%02d%02d%04d_%02d_%02d_%02d.raw' % (now.month, now.day, now.year, now.hour, now.minute, now.second)
+            cv2.imwrite(path + current_pic_name, img)
             photo_taken = True
             picture_count += 1
     else:
