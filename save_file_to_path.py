@@ -16,8 +16,9 @@ path = '/media/pi/TRAP_PIX'
 # allows camera time to boot
 time.sleep(0.1)
 
-camera.capture(rawCapture, format="bgr")
+camera.capture(rawCapture, 'bgr')
 img = rawCapture.array
 now = datetime.now()
-current_pic_name = '%02d%02d%04d_%02d_%02d_%02d.raw' % (now.month, now.day, now.year, now.hour, now.minute, now.second)
-cv2.imwrite(path + current_pic_name, img)
+current_pic_name = '%02d%02d%04d_%02d_%02d_%02d.jpg' % (now.month, now.day, now.year, now.hour, now.minute, now.second)
+print(path + current_pic_name)
+cv2.imwrite(os.path.join(path, current_pic_name), img)

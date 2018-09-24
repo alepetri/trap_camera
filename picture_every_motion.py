@@ -25,26 +25,21 @@ if not os.path.exists(path):
 time.sleep(0.1)
 
 picture_count = 0
-time_at_motion = 0
-time_since_motion = 0
+photo_taken = False
 
-while picture_count < 13000:
+while picture_count < 400:
     if pir.motion_detected:
         led.on
-        time_at_motion = time.time()
+        if not photo_taken:
+            camera.capture(rawCapture, format="bgr")
+            img = rawCapture.array
+            now = datetime.now()
+            current_pic_name = '%02d%02d%04d_%02d_%02d_%02d.jpg' % (now.month, now.day, now.year, now.hour, now.minute, now.second)
+            cv2.imwrite(os.path.join(path, current_pic_name), img)
+            photo_taken = True
+            picture_count += 1
+            print('Photos Taken: ' + str(picture_count))
+            rawCapture.truncate(0)
     else:
         led.off
-    
-    time_since_motion = time.time() - time_at_motion
-    
-    if time_since_motion < 10:
-        camera.capture(rawCapture, format="bgr")
-        img = rawCapture.array
-        now = datetime.now()
-        current_pic_name = '%02d%02d%04d_%02d_%02d_%02d.jpg' % (now.month, now.day, now.year, now.hour, now.minute, now.second)
-        cv2.imwrite(os.path.join(path, current_pic_name), img)
-        picture_count += 1
-        print('Photos Taken: ' + str(picture_count))
-        rawCapture.truncate(0)
-    
-    time.sleep(0.05)
+        photo_taken = False
