@@ -25,6 +25,8 @@ if not os.path.exists(path):
 time.sleep(0.1)
 
 picture_count = 0
+group_number = 1
+in_same_group = True
 time_at_motion = 0
 time_since_motion = 0
 
@@ -34,17 +36,22 @@ while picture_count < 13000:
         time_at_motion = time.time()
     else:
         led.off
-    
+
     time_since_motion = time.time() - time_at_motion
-    
+
     if time_since_motion < 10:
+        if not in_same_group:
+            group_number += 1
+            in_same_group = True
         camera.capture(rawCapture, format="bgr")
         img = rawCapture.array
         now = datetime.now()
-        current_pic_name = '%02d%02d%04d_%02d_%02d_%02d.jpg' % (now.month, now.day, now.year, now.hour, now.minute, now.second)
+        current_pic_name = 'G%03d_%02d%02d%04d_%02d_%02d_%02d.jpg' % (group_number, now.month, now.day, now.year, now.hour, now.minute, now.second)
         cv2.imwrite(os.path.join(path, current_pic_name), img)
         picture_count += 1
         print('Photos Taken: ' + str(picture_count))
         rawCapture.truncate(0)
-    
+    else:
+        in_same_group = False
+
     time.sleep(0.05)
