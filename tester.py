@@ -46,7 +46,7 @@ while picture_count < 13000:
         camera.capture(rawCapture, format="bgr")
         img = rawCapture.array
         now = datetime.now()
-        current_pic_name = 'G%03d_%02d%02d%04d_%02d_%02d_%02d.jpg' % (group_number, now.month, now.day, now.year, now.hour, now.minute, now.second)
+        current_pic_name = 'G%03d_%02d%02d%04d_%02d_%02d_%02d_%02d.jpg' % (group_number, now.month, now.day, now.year, now.hour, now.minute, now.second, now.microsecond)
         cv2.imwrite(os.path.join(path, current_pic_name), img)
         picture_count += 1
         print('Photos Taken: ' + str(picture_count))
