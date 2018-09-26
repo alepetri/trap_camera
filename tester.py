@@ -17,7 +17,8 @@ rawCapture = PiRGBArray(camera)
 #camera.framerate = 32
 #rawCapture = PiRGBArray(camera, size=(640, 480)))
 now = datetime.now()
-path = '/media/pi/TRAP_PIX/%02d%02d%04d_%02d_%02d_%02d' % (now.month, now.day, now.year, now.hour, now.minute, now.second)
+path = '/home/pi/Desktop/%02d%02d%04d_%02d_%02d_%02d' % (now.month, now.day, now.year, now.hour, now.minute, now.second)
+#path = '/media/pi/TRAP_PIX/%02d%02d%04d_%02d_%02d_%02d' % (now.month, now.day, now.year, now.hour, now.minute, now.second)
 if not os.path.exists(path):
     os.makedirs(path)
 
@@ -25,8 +26,8 @@ if not os.path.exists(path):
 time.sleep(0.1)
 
 picture_count = 0
-group_number = 1
-in_same_group = True
+group_number = 0
+in_same_group = False
 time_at_motion = 0
 time_since_motion = 0
 
@@ -49,9 +50,9 @@ while picture_count < 13000:
         current_pic_name = 'G%03d_%02d%02d%04d_%02d_%02d_%02d_%02d.jpg' % (group_number, now.month, now.day, now.year, now.hour, now.minute, now.second, now.microsecond)
         cv2.imwrite(os.path.join(path, current_pic_name), img)
         picture_count += 1
-        print('Photos Taken: ' + str(picture_count))
+        #print('Photos Taken: ' + str(picture_count))
         rawCapture.truncate(0)
     else:
         in_same_group = False
 
-    time.sleep(0.05)
+    time.sleep(0.01)
