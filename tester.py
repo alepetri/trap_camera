@@ -17,8 +17,8 @@ rawCapture = PiRGBArray(camera)
 #camera.framerate = 32
 #rawCapture = PiRGBArray(camera, size=(640, 480)))
 now = datetime.now()
-path = '/home/pi/Desktop/%02d%02d%04d_%02d_%02d_%02d' % (now.month, now.day, now.year, now.hour, now.minute, now.second)
-#path = '/media/pi/TRAP_PIX/%02d%02d%04d_%02d_%02d_%02d' % (now.month, now.day, now.year, now.hour, now.minute, now.second)
+#path = '/home/pi/Desktop/%02d%02d%04d_%02d_%02d_%02d' % (now.month, now.day, now.year, now.hour, now.minute, now.second)
+path = '/media/pi/TRAP_PIX/%02d%02d%04d_%02d_%02d_%02d' % (now.month, now.day, now.year, now.hour, now.minute, now.second)
 if not os.path.exists(path):
     os.makedirs(path)
 
@@ -31,7 +31,7 @@ in_same_group = False
 time_at_motion = 0
 time_since_motion = 0
 
-while picture_count < 13000:
+while picture_count < 20:
     if pir.motion_detected:
         led.on
         time_at_motion = time.time()
