@@ -5,7 +5,7 @@ from gpiozero import LED, MotionSensor
 import sys
 
 # initializing the camera, gpio pins, and path to save photos
-led = LED(14)
+led = LED(14,False)
 
 # allows camera time to boot
 time.sleep(0.1)
