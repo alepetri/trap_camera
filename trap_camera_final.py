@@ -8,13 +8,22 @@ import os
 from gpiozero import LED, MotionSensor, Button
 import sys
 
+# 
+def blink(LED, secs_between_blinks, num_blinks):
+    count = 0
+    while count < num_blinks*2:
+        LED.toggle()
+        time.sleep(secs_between_blinks/2)
+        count += 1
+    return
+
 # initializing the gpio pins
 ir_illuminator = LED(14, active_high=False)
 ir_illuminator.off()
 LED_indicator = LED(4)
 LED_indicator.off()
-passive_infrared = MotionSensor(3)
-button = Button(2, hold_time=5)
+passive_infrared = MotionSensor(27)
+button = Button(17, hold_time=3)
 
 # initializing the camera
 camera = PiCamera()
@@ -28,12 +37,12 @@ path = '/media/pi/TRAP_PIX/%02d%02d%04d_%02d_%02d_%02d' % (now.month, now.day, n
 if not os.path.exists(path):
     os.makedirs(path)
 
-led_indicator.on()
+LED_indicator.on()
 
-while not button.is_held():
+while not button.is_held:
     pass
 
-blink(LED_indicator, 0.5, 40)
+blink(LED_indicator, 0.5, 20)
 LED_indicator.off()
 
 picture_count = 0
@@ -41,8 +50,8 @@ group_number = 0
 in_same_group = False
 time_at_motion = 0
 time_since_motion = 0
-while not button.is_held() and picture_count < 100:
-    if pir.motion_detected:
+while not button.is_held and picture_count < 400:
+    if passive_infrared.motion_detected:
         time_at_motion = time.time()
         ir_illuminator.on()
 
@@ -68,11 +77,4 @@ while not button.is_held() and picture_count < 100:
 
 ir_illuminator.off()
 blink(LED_indicator, 1, 5)
-
-
-def blink(LED, secs_between_blinks, num_blinks):
-    count = 0
-    while count < num_blinks*2:
-        LED.toggle()
-        time.sleep(secs_between_blinks/2)
-    return
+LED_indicator.off()
