@@ -57,7 +57,7 @@ while not button.is_held and picture_count < 400:
 
     time_since_motion = time.time() - time_at_motion
 
-    if time_since_motion < 10:
+    if time_since_motion < 2:
         if not in_same_group:
             group_number += 1
             in_same_group = True
