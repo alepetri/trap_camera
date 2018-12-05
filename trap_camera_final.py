@@ -7,6 +7,7 @@ import cv2
 import os
 from gpiozero import LED, MotionSensor, Button
 import sys
+from subprocess import call
 
 # 
 def blink(LED, secs_between_blinks, num_blinks):
@@ -78,3 +79,5 @@ while not button.is_held and picture_count < 400:
 ir_illuminator.off()
 blink(LED_indicator, 1, 5)
 LED_indicator.off()
+
+call("sudo shutdown -h now", shell-True)
