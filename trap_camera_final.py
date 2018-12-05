@@ -34,7 +34,7 @@ rawCapture = PiRGBArray(camera)
 now = datetime.now()
 #path = '/home/pi/Desktop/%02d%02d%04d_%02d_%02d_%02d' % (now.month, now.day, now.year, now.hour, now.minute, now.second)
 path = '/media/pi/TRAP_PIX/%02d%02d%04d_%02d_%02d_%02d' % (now.month, now.day, now.year, now.hour, now.minute, now.second)
-if not os.path.exists(path):
+while not os.path.exists(path):
     time.sleep(5)
 
 LED_indicator.on()
