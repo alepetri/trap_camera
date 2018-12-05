@@ -34,13 +34,13 @@ rawCapture = PiRGBArray(camera)
 # initializing unique paths and names to save photos
 now = datetime.now()
 #path = '/home/pi/Desktop/%02d%02d%04d_%02d_%02d_%02d' % (now.month, now.day, now.year, now.hour, now.minute, now.second)
-path = '/media/pi/TRAP_PIX/%02d%02d%04d_%02d_%02d_%02d' % (now.month, now.day, now.year, now.hour, now.minute, now.second)
-while not os.path.exists('/media/pi/TRAP_PIX'):
-    print("flash drivenot found")
-    time.sleep(5)
+folder_path = '/media/pi/TRAP_PIX/%02d%02d%04d_%02d_%02d_%02d' % (now.month, now.day, now.year, now.hour, now.minute, now.second)
+while not os.path.ismount('/media/pi/TRAP_PIX'):
+    print("can't find")
+    time.sleep(2)
 else:
     print("flash drive found")
-    os.makedirs(path)
+    os.makedirs(folder_path)
     print("made folder")
 
 LED_indicator.on()
@@ -71,7 +71,7 @@ while not button.is_held and picture_count < 400:
         img = rawCapture.array
         now = datetime.now()
         current_pic_name = 'G%03d_%02d%02d%04d_%02d_%02d_%02d_%02d.jpg' % (group_number, now.month, now.day, now.year, now.hour, now.minute, now.second, now.microsecond)
-        cv2.imwrite(os.path.join(path, current_pic_name), img)
+        cv2.imwrite(os.path.join(folder_path, current_pic_name), img)
         picture_count += 1
         #print('Photos Taken: ' + str(picture_count))
         rawCapture.truncate(0)
