@@ -35,8 +35,13 @@ rawCapture = PiRGBArray(camera)
 now = datetime.now()
 #path = '/home/pi/Desktop/%02d%02d%04d_%02d_%02d_%02d' % (now.month, now.day, now.year, now.hour, now.minute, now.second)
 path = '/media/pi/TRAP_PIX/%02d%02d%04d_%02d_%02d_%02d' % (now.month, now.day, now.year, now.hour, now.minute, now.second)
-while not os.path.exists(path):
+while not os.path.exists('/media/pi/TRAP_PIX'):
+    print("flash drivenot found")
     time.sleep(5)
+else:
+    print("flash drive found")
+    os.makedirs(path)
+    print("made folder")
 
 LED_indicator.on()
 
@@ -80,4 +85,4 @@ ir_illuminator.off()
 blink(LED_indicator, 1, 5)
 LED_indicator.off()
 
-call("sudo shutdown -h now", shell-True)
+call("sudo shutdown -h now", shell=True)
