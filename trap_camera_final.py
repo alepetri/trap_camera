@@ -56,7 +56,7 @@ group_number = 0
 in_same_group = False
 time_at_motion = 0
 time_since_motion = 0
-while not button.is_held and picture_count < 400:
+while not button.is_held and picture_count < 40000:
     if passive_infrared.motion_detected:
         time_at_motion = time.time()
         ir_illuminator.on()
