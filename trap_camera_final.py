@@ -9,7 +9,7 @@ from gpiozero import LED, MotionSensor, Button
 import sys
 from subprocess import call
 
-# 
+#
 def blink(LED, secs_between_blinks, num_blinks):
     count = 0
     while count < num_blinks*2:
@@ -48,7 +48,7 @@ LED_indicator.on()
 while not button.is_held:
     pass
 
-blink(LED_indicator, 0.5, 20)
+blink(LED_indicator, 0.5, 60)
 LED_indicator.off()
 
 picture_count = 0
