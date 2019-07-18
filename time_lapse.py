@@ -9,7 +9,6 @@ from gpiozero import LED, MotionSensor, Button
 import sys
 from subprocess import call
 
-from utils import image_resize
 import glob
 
 def images_to_video(videoWriter, image_dir, clear_images=True):
