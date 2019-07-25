@@ -22,8 +22,10 @@ def images_to_video(videoWriter, image_dir, clear_images=True):
             os.remove(file)
 
 # initializing the camera
-camera = PiCamera()
-rawCapture = PiRGBArray(camera)
+cap = cv2.VideoCapture(0)
+
+width = int(vcap.get(cv2.cv.CAP_PROP_FRAME_WIDTH))
+height = int(vcap.get(cv2.cv.CAP_PROP_FRAME_HEIGHT))
 
 # initializing unique paths and names to save photos
 now = datetime.datetime.now()
@@ -34,21 +36,20 @@ if not os.path.exists(path):
 
 # initializing the VideoWriter
 fourcc = cv2.VideoWriter_fourcc(*'DIVX')
-out = cv2.VideoWriter(f"{path}/timelapse.avi", fourcc, 20, camera.resolution)
+out = cv2.VideoWriter(f"{path}/timelapse.avi", fourcc, 20, (width, height))
 
 finish_time = now + datetime.timedelta(seconds=100)
 i = 0
 while datetime.datetime.now() < finish_time:
     filename = f"{path}/{i}.tiff"
-    camera.capture(rawCapture, format="bgr")
-    img = rawCapture.array
-    cv2.imwrite(filename,img)
-    rawCapture.truncate(0)
-    time.sleep(0.01)
-    if cv2.waitKey(20) & 0xFF == ord('q'):
-        break
+    ret, frame = cap.read()
+    i += 1
 
-images_to_video(out, path)
+    cv2.imwrite(filename,frame)
+
+    time.sleep(0.5)
+
+images_to_video(out, path, False)
 # When everything done, release the capture
 cap.release()
 out.release()
