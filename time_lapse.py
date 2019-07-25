@@ -25,18 +25,18 @@ def images_to_video(videoWriter, image_dir, clear_images=True):
 camera = PiCamera()
 rawCapture = PiRGBArray(camera)
 
-# initializing the VideoWriter
-fourcc = cv2.VideoWriter_fourcc(*'X246')
-out = cv2.VideoWriter("name.AVCHD", fourcc, 20, (2592, 1944))
-
 # initializing unique paths and names to save photos
-now = datetime.now()
+now = datetime.datetime.now()
 path = '/home/pi/Desktop/%02d%02d%04d_%02d_%02d_%02d' % (now.month, now.day, now.year, now.hour, now.minute, now.second)
 
 if not os.path.exists(path):
     os.mkdir(path)
 
-finish_time = now + datetime.timedelta(seconds=600)
+# initializing the VideoWriter
+fourcc = cv2.VideoWriter_fourcc(*'DIVX')
+out = cv2.VideoWriter(f"{path}/timelapse.avi", fourcc, 20, camera.resolution)
+
+finish_time = now + datetime.timedelta(seconds=100)
 i = 0
 while datetime.datetime.now() < finish_time:
     filename = f"{path}/{i}.tiff"
