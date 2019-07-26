@@ -12,7 +12,7 @@ from subprocess import call
 import glob
 
 def images_to_video(videoWriter, image_dir, clear_images=True):
-    image_list = glob.glob(f"{image_dir}/*.tiff")
+    image_list = glob.glob(f"{image_dir}/*.jpg")
     sorted_images = sorted(image_list, key=os.path.getmtime)
     for file in sorted_images:
         image_frame = cv2.imread(file)
@@ -24,8 +24,8 @@ def images_to_video(videoWriter, image_dir, clear_images=True):
 # initializing the camera
 cap = cv2.VideoCapture(0)
 
-width = int(vcap.get(cv2.cv.CAP_PROP_FRAME_WIDTH))
-height = int(vcap.get(cv2.cv.CAP_PROP_FRAME_HEIGHT))
+width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
 # initializing unique paths and names to save photos
 now = datetime.datetime.now()
@@ -41,13 +41,14 @@ out = cv2.VideoWriter(f"{path}/timelapse.avi", fourcc, 20, (width, height))
 finish_time = now + datetime.timedelta(seconds=100)
 i = 0
 while datetime.datetime.now() < finish_time:
-    filename = f"{path}/{i}.tiff"
+    print(i)
+    filename = f"{path}/{i}.jpg"
     ret, frame = cap.read()
     i += 1
 
     cv2.imwrite(filename,frame)
 
-    time.sleep(0.5)
+    time.sleep(0.1)
 
 images_to_video(out, path, False)
 # When everything done, release the capture
