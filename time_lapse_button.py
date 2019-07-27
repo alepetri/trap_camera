@@ -33,8 +33,6 @@ def images_to_video(videoWriter, image_dir, clear_images=True):
 
 
 # initializing the gpio pins
-ir_illuminator = LED(14, active_high=False)
-ir_illuminator.off()
 LED_indicator = LED(4)
 LED_indicator.off()
 passive_infrared = MotionSensor(27)
