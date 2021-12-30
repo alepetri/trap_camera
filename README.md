@@ -13,16 +13,22 @@ A custom Trap Camera that uses a Passive Infrared trigger to turn on an Infrared
 
 
 Parts List:
-- Raspberry Pi
-- Pi NoIR Camera
-- Passive IR Sensor
-- IR Illuminator
-- 12V Battery
-- Power Relay
-- 12V to 5V Power Converter
-- Button
-- LED
-- USB External Storage
-- Various Fasteners
+- Electronics
+    - Raspberry Pi
+    - Pi NoIR Camera
+    - Passive IR Sensor
+    - IR Illuminator
+    - 12V Battery
+    - Power Relay (GPIO Controllable)
+    - 12V to 5V Power Converter
+    - Button
+    - LED
+    - USB External Storage
+- Mechanical
+    - Polycarbonate Cutouts for Illuminator and Camera
+    - O-Ring
+    - Pins/ Rods for Hinges
+    - Various Fasteners
+    - Wiring
 
 ![Annotated Veiw](./assets/labels.png)
